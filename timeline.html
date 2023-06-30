@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>月嫂媒合系統平台</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
+        integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"
+        integrity="sha512-gh+25Y0CTHtw1FSJ4gDKYDFlZ84oV0l1bY5v7xrIwep7M1aV+7JgUaTu55bMerCblbPUD22MKlStyUwO9lHq4w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module">
+        import vueGoogleCharts from 'https://cdn.jsdelivr.net/npm/vue-google-charts@1.1.0/+esm'
+    </script>
+    <!-- <link rel="stylesheet" href="./CSS/style.css"> -->
+    <link href="https://raw.githack.com/shinek031/matchmaking/master/CSS/style.css"
+    rel="stylesheet" />
+</head>
+<div id="page-content-wrapper">
+
+    <body>
+        <div id="app">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light  border-bottom" style="background-color: #e3f2fd;">
+                <div class="nav">
+                    <div>
+                        <h3>排班時序表查詢</h3>
+                        <!-- <a class="navbar-brand" href="#">排班時序表查詢</a> -->
+                    </div>
+                    <div class=" navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav " v-for="(item,index) in PageMenu">
+                            <li class="nav-item "><a class="nav-link" :href="item.Link">{{item.Title}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container border " id="myform">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span for="MemberDataList" class="badge  rounded-pill text-bg-success">月嫂姓名</span>
+                        <input class="form-control" list="datalistOptions" id="MemberDataList" v-model="input.Name"
+                            placeholder="王小明">
+                        <datalist id="datalistOptions">
+                            <option v-for="itme in MemberList" :value="itme.Name"></option>
+                        </datalist>
+                    </div>
+                    <div class="col-md-6">
+                        <span for="btnadd" class="badge  rounded-pill ">&nbsp;</span>
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-success end-0" id="btnadd"
+                                @click="addSelectList">加入查詢</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span for="inputSdt" class="badge  rounded-pill text-bg-success">起始日期</span>
+                        <input type="date" v-model.trim="input.Sdt" class="form-control" id="inputSdt">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="inputEdt" class="badge  rounded-pill text-bg-success">終止日期</span>
+                        <input type="date" v-model.trim="input.Edt" class="form-control" id="inputEdt">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 ">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger end-0" @click="clear">清除資料</button>
+                        </div>
+                    </div>
+                    <div class="col-6 ">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary end-0" @click="getWork">送出</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-12">
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-primary end-0" @click="uptimeline">送出2</button>
+                </div>
+            </div> -->
+            </div>
+            <div class="container border">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">序號</th>
+                            <th scope="col">姓名</th>
+                            <th scope="col">刪除</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item,index) in SelectList">
+                            <th scope="row">{{index + 1}}</th>
+                            <td>{{item}}</td>
+                            <td><button class="btn btn-danger" @click="DelRow(index)">刪除</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="container border"><div id="timeline" style="height: 100vh;"></div></div>
+            
+
+        </div>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['timeline'] });
+        </script>
+        <script>
+            //google.charts.load('current', { 'packages': ['timeline'] });
+            //google.charts.setOnLoadCallback(uptimeline);
+            /*        import { GChart } from 'vue-google-charts'*/
+            let data = {
+                input: {
+                    Name: '',
+                    ID: '',
+                    Sdt: '',
+                    Edt: ''
+                },
+                PageMenu: [
+                    { Title: '空檔月嫂查詢', Link: 'https://script.google.com/macros/s/AKfycbxZtD1FyDjF2mDa7c5fuVR4v6SkIaUHyUlljIIpeh2X8n9u3KLAhoQ1t6nWShcz-SJ_mw/exec', Note: '' },
+                    { Title: '排班時序表查詢', Link: 'https://script.google.com/macros/s/AKfycbxjqwYl7KmYhplUy7rH5pViH8YvCcKvHyUEaVa8nTo/dev', Note: '' },
+                    { Title: '表單統計作業', Link: 'javescript:;' },
+                    { Title: '待用', Link: 'javescript:;', Note: '' }
+                ],
+                MemberList: [],
+                SelectList: [],
+                WorkList: [
+                    ['王美杏111', '林佳君-全天', new Date(2023, 1, 1), new Date(2023, 2, 28)],
+                    ['王美杏111', '陳宜婕-上午', new Date(2023, 3, 1), new Date(2023, 3, 31)],
+                    ['王意涵111', '段淑慧-下午', new Date(2023, 1, 3), new Date(2023, 1, 6)],
+                    ['丘燕玲111', '謝心苑-24小時', new Date(2023, 1, 28), new Date(2023, 3, 3)]
+                ],
+                rowData: {
+                    SelectList: [],
+                    Sdt: '',
+                    Edt: ''
+                }
+
+            }
+            let vue = new Vue({
+                el: "#app",
+                data: data,
+                methods: {
+                    add() {
+
+                    },
+                    addSelectList() {
+                        if(this.SelectList.indexOf(this.input.Name) != -1) {
+                            alert('已重複加入');
+                            return;
+                            }
+                        this.SelectList.push(this.input.Name);
+                        this.input.Name = '';
+                    },
+                    DelRow(index) {
+                        this.SelectList.splice(index, 1)
+                    },
+                    uptimeline: function () {
+                        //google.charts.load('current', { 'packages': ['timeline'] });
+                        google.charts.setOnLoadCallback(this);
+                        var container = document.getElementById('timeline');
+                        var chart = new google.visualization.Timeline(container);
+                        var dataTable = new google.visualization.DataTable();
+
+                        dataTable.addColumn({ type: 'string', id: 'Position' });
+                        dataTable.addColumn({ type: 'string', id: 'President' });
+                        dataTable.addColumn({ type: 'date', id: 'Start' });
+                        dataTable.addColumn({ type: 'date', id: 'End' });
+                        dataTable.addRows(this.WorkList);
+                        chart.draw(dataTable);
+                    },
+                    setMemberList(_data) {
+                        // alert('解析資料')
+                        this.MemberList = [];
+                        for (var i = 0; i < _data.length; i++) {
+                            this.MemberList.push({
+                                Name: _data[i].Name,
+                                Address: _data[i].Address,
+                                City: _data[i].City
+                            })
+                        }
+                        // alert(this.MemberList.length);
+                    },
+                    getMember() {
+                        google.script.run
+                            .withSuccessHandler((jsData) => {
+                                // alert("資料收到")
+                                this.setMemberList(jsData);
+                            })
+                            .withFailureHandler((er) => {
+                                alert("服務區域媒合");
+                            })
+                            .getMember();
+                    },
+                    getWork() {
+                        if (!this.input.Sdt) {
+                            alert('起始日期未輸入');
+                            return;
+                        }
+                        if (!this.input.Sdt) {
+                            alert('終止日期未輸入');
+                            return;
+                        }
+                        if (!this.SelectList) {
+                            alert('查詢人員未輸入');
+                            // alert(this.input.SelectList.length);
+                            return;
+                        }
+                        this.rowData.SelectList = this.SelectList;
+                        this.rowData.Sdt = this.input.Sdt;
+                        this.rowData.Edt = this.input.Edt;
+                        google.script.run
+                            .withSuccessHandler((jsData) => {
+                                // alert(jsData.length)
+
+                                this.setWorkList(jsData);
+                            })
+                            .withFailureHandler((er) => {
+                                alert("Work讀取異常");
+                            })
+                            .getwork(this.rowData);
+                    },
+                    setWorkList(_data) {
+                        // alert('解析資料')
+                        this.WorkList = [];
+                        for (var i = 0; i < _data.length; i++) {
+                            this.WorkList.push([
+                                _data[i].月嫂姓名,
+                                _data[i].產婦姓名 + '-' + _data[i].時段,
+                                new Date(_data[i].開始服務日期),
+                                new Date(_data[i].結束服務日期)])
+                        }
+                        // alert(this.MemberList.length);
+                        this.uptimeline();
+                    },
+                    async clear() {
+                        google.script.run
+                            .withSuccessHandler(function (url) {
+                                window.open(url, '_top');
+                            })
+                            .getUrl();
+                    }
+                },
+                mounted: function () {
+                      this.getMember();
+                }
+            })
+        </script>
+    </body>
+
+</html>

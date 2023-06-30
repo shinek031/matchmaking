@@ -1,0 +1,51 @@
+/* 全域樣式 */
+* {
+    box-sizing: border-box;
+    letter-spacing: 1.2px;
+    color: #414141;
+  }
+  h2 {
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  h3 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  h4 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+.app {
+    width: 1024px;
+    padding-top: 100px;
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/*表頭區域*/
+.hearder{
+    display: flex;
+    background-color: #e3f2fd;
+    /* justify-content: space-between; */
+}
+.hearder img{
+  width: 100px;
+  height: 100px;
+}
+.container{
+    padding: 5px;
+}
+.row{
+    padding: 5px;
+    margin: 2px;
+}
+/* .collapse{
+    text-align: end;
+} */
