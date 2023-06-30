@@ -32,18 +32,10 @@
         <!-- Sidebar
   <!-- Top navigation-->
   <div class="hearder">
-    <img src="./image/logo.png" alt="logo">
+    <img src="https://raw.githack.com/shinek031/matchmaking/master/image/logo.png" alt="logo">
     <nav class="navbar navbar-expand-lg navbar-light  border-bottom">
         <div class="nav">
-            <!-- <button class="btn btn-primary" id="sidebarToggle">排班時序表查詢</button>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button> -->
-            
-            <div>
-
-                
-                <!-- <a class="navbar-brand" href="#">排班時序表查詢</a> -->
-            </div>
-            <h3>排班時序表查詢</h3>
+            <h3>空檔月嫂查詢</h3>
             <div class=" navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav " v-for="(item,index) in PageMenu">
                     <li class="nav-item "><a class="nav-link" :href="item.Link">{{item.Title}}</a></li>
@@ -130,8 +122,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="container border">
             <table class="table">
                 <thead>
@@ -169,12 +159,11 @@
             </table>
         </div>
     </div>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!--<script src="http://raw.githack.com/shinek031/startbootstrap-simple-sidebar-gh-pages/master/js/scripts.js"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"
-        integrity="sha512-gh+25Y0CTHtw1FSJ4gDKYDFlZ84oV0l1bY5v7xrIwep7M1aV+7JgUaTu55bMerCblbPUD22MKlStyUwO9lHq4w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <div class="footer ">        
+        <div class="container">
+            <h5>Copyright © 2023 shinek031 Inc.</h5>
+        </div>
+    </div>
     <script>
         let data = {
             UUID: '',

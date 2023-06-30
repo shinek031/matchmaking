@@ -16,28 +16,28 @@
     <script type="module">
         import vueGoogleCharts from 'https://cdn.jsdelivr.net/npm/vue-google-charts@1.1.0/+esm'
     </script>
-    <!-- <link rel="stylesheet" href="./CSS/style.css"> -->
-    <link href="https://raw.githack.com/shinek031/matchmaking/master/CSS/style.css"
-    rel="stylesheet" />
+    <link rel="stylesheet" href="./CSS/style.css">
+    <!-- <link href="https://raw.githack.com/shinek031/matchmaking/master/CSS/style.css"
+    rel="stylesheet" /> -->
 </head>
 <div id="page-content-wrapper">
 
     <body>
         <div id="app">
             <!-- Top navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light  border-bottom" style="background-color: #e3f2fd;">
-                <div class="nav">
-                    <div>
+            <div class="hearder">
+                <img src="https://raw.githack.com/shinek031/matchmaking/master/image/logo.png" alt="logo">
+                <nav class="navbar navbar-expand-lg navbar-light  border-bottom">
+                    <div class="nav">
                         <h3>排班時序表查詢</h3>
-                        <!-- <a class="navbar-brand" href="#">排班時序表查詢</a> -->
+                        <div class=" navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav " v-for="(item,index) in PageMenu">
+                                <li class="nav-item "><a class="nav-link" :href="item.Link">{{item.Title}}</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class=" navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav " v-for="(item,index) in PageMenu">
-                            <li class="nav-item "><a class="nav-link" :href="item.Link">{{item.Title}}</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+                </nav>
+              </div>
             <div class="container border " id="myform">
                 <div class="row">
                     <div class="col-md-6">
@@ -106,7 +106,11 @@
             </div>
             <div class="container border"><div id="timeline" style="height: 100vh;"></div></div>
             
-
+        </div>
+        <div class="footer ">        
+            <div class="container">
+                <h5>Copyright © 2023 shinek031 Inc.</h5>
+            </div>
         </div>
         <script type="text/javascript">
             google.charts.load('current', { 'packages': ['timeline'] });
