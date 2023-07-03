@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Loading animation demo</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+    <style>
+        .mask {
+            /* background-color: rgba(0, 0, 0, 0.2); */
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            outline: 0;
+            -webkit-overflow-scrolling: touch;
+            background-color: rgb(0, 0, 0);
+            filter: alpha(opacity=60);
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            display: none;
+        }
+
+        .loader {
+            width: 100px;
+            height: 101px;
+            border: 8px solid;
+            border-top-color: hsl(154, 100%, 31%);
+            border-left-color: hsl(216, 87%, 52%);
+            border-bottom-color: hsl(8, 66%, 50%);
+            border-right-color: hsl(42, 100%, 51%);
+            border-radius: 50%;
+            transform: rotate(45deg);
+            margin: 30px auto;
+            z-index: 9999;
+            display: none;
+        }
+
+        p {
+            display: inline-block;
+            width: 107px;
+            height: 107px;
+            /* The background is used to specify the border background */
+            background: linear-gradient(90deg, hsla(212, 67%, 36%, 0) 0%,
+                    hsla(207, 69%, 51%, 0) 76%,
+                    hsla(0, 0%, 100%, 1) 85%,
+                    hsla(0, 0%, 100%, 1) 100%);
+            /* W3C */
+            /* Background origin is the padding box by default.
+  Override to make the background cover the border as well. */
+            -moz-background-origin: border;
+            background-origin: border-box;
+            /* A transparent border determines the width */
+            border: 6px solid transparent;
+            border-radius: 50%;
+            box-shadow: inset -999px 0 0 #fff;
+            /* The background color */
+            transform: translate(-8px, 55px);
+            animation: loading 1s linear infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                transform: translate(-9px, -25px) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-9px, -25px) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <select id="selAction">
+        <option value="1">Delay 1s</option>
+        <option value="3">Delay 3s</option>
+        <option value="D">No Host</option>
+        <option value="N">HTTP 404</option>
+        <option value="E">HTTP 500</option>
+    </select>
+    <button id='btnTest'>Run Test</button><br />
+    Result = <span id="txtResult"></span>
+    <div class="loading">
+        <div class="mask"></div>
+        <div class="animation">
+        </div>
+    </div>
+    <button id="ttt"> TTTT</button>
+    <button id="close"> close</button>
+    <div class="mask"> </div>
+    <div class="loader">
+        <p></p>
+    </div>
+    <script>
+        function toggleLoading(show) {
+            document.querySelector('.loader').style.display = show ? 'block' : 'none';
+            // document.querySelector('.mask').style.display = show ? 'block' : 'none';
+        }
+        function callAjax() {
+            var req = new XMLHttpRequest();
+            req.addEventListener("load", function () {
+                toggleLoading(false);
+                if (req.status == 200)
+                    document.getElementById('txtResult').innerText = req.responseText;
+                else {
+                    alert("XHR Status=" + req.status);
+                }
+            });
+            req.addEventListener("error", function () {
+                //failed to get response from remote server
+                alert("ERROR");
+                toggleLoading(false);
+            });
+            var act = document.getElementById('selAction').value;
+            if (act == "D") {
+                req.open("POST", "http://no-such-host.net/null.html");
+            }
+            else if (act == "N") {
+                req.open("POST", "no-such-page.aspx");
+            }
+            else {
+                req.open("POST", "getGuid.aspx?d=" + act);
+            }
+            toggleLoading(true);
+            document.getElementById('txtResult').innerText = "";
+            req.send();
+        }
+        function loading() {
+            toggleLoading(true);
+        }
+        function close() {
+            toggleLoading(false);
+        }
+        document.getElementById('btnTest')
+            .addEventListener('click', callAjax);
+        document.getElementById('ttt')
+            .addEventListener('click', loading);
+        document.getElementById('close')
+            .addEventListener('click', close);
+    </script>
+</body>
+
+</html>

@@ -2,347 +2,396 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <title>月嫂媒合系統平台</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Simple Sidebar - Start Bootstrap Template</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
-        integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"
-        integrity="sha512-gh+25Y0CTHtw1FSJ4gDKYDFlZ84oV0l1bY5v7xrIwep7M1aV+7JgUaTu55bMerCblbPUD22MKlStyUwO9lHq4w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module">
-        import vueGoogleCharts from 'https://cdn.jsdelivr.net/npm/vue-google-charts@1.1.0/+esm'
-    </script>
-    <link rel="stylesheet" href="./CSS/style.css">
-    <!-- <link href="https://raw.githack.com/shinek031/matchmaking/master/CSS/style.css"
-    rel="stylesheet" /> -->
+  <meta charset="utf-8" />
+  <title>月嫂媒合系統平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
+    integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"
+    integrity="sha512-gh+25Y0CTHtw1FSJ4gDKYDFlZ84oV0l1bY5v7xrIwep7M1aV+7JgUaTu55bMerCblbPUD22MKlStyUwO9lHq4w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="module">
+    import vueGoogleCharts from 'https://cdn.jsdelivr.net/npm/vue-google-charts@1.1.0/+esm'
+  </script>
+  <link rel="stylesheet" href="./CSS/style.css">
+  <!-- <link href="https://raw.githack.com/shinek031/matchmaking/master/CSS/style.css" rel="stylesheet" /> -->
 </head>
 
 <body>
-    <div id="app">
-        <!-- Sidebar
+  <div id="app">
+    <!-- Sidebar
   <!-- Top navigation-->
-  <div class="hearder">
-    <img src="https://raw.githack.com/shinek031/matchmaking/master/image/logo.png" alt="logo">
-    <nav class="navbar navbar-expand-lg navbar-light  border-bottom">
+    <div class="hearder">
+      <img src="https://raw.githack.com/shinek031/matchmaking/master/image/logo.png" alt="logo">
+      <nav class="navbar navbar-expand-lg navbar-light  border-bottom">
         <div class="nav">
-            <h3>空檔月嫂查詢</h3>
-            <div class=" navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav " v-for="(item,index) in PageMenu">
-                    <li class="nav-item "><a class="nav-link" :href="item.Link">{{item.Title}}</a></li>
-                </ul>
-            </div>
+          <h3>空檔月嫂查詢</h3>
+          <div class=" navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav " v-for="(item,index) in PageMenu">
+              <li class="nav-item "><a class="nav-link" :href="item.Link">{{item.Title}}</a></li>
+            </ul>
+          </div>
         </div>
-    </nav>
-  </div>
-  
-        
-        <!-- Page content-->
-        <div class="container border ">
-            <div class="row border border-1 d-flex p-1">
+      </nav>
+    </div>
 
-                <div class="col-md-6">
-                    <span for="inputSdt" class="badge  rounded-pill text-bg-success">起始日期</span>
-                    <input type="date" v-model.trim="input.Sdt" class="form-control" id="inputSdt">
-                </div>
-                <div class="col-md-6">
-                    <span for="inputEdt" class="badge  rounded-pill text-bg-success">終止日期</span>
-                    <input type="date" v-model.trim="input.Edt" class="form-control" id="inputEdt">
-                </div>
-            </div>
-            <div class="row border border-1 d-flex p-1">
-                <div class="col-12">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                            v-model="input.allday" value="0">
-                        <label class="form-check-label" for="inlineRadio0" checked="checked">全天</label>
-                    </div>
 
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                            v-model="input.allday" value="1">
-                        <label class="form-check-label" for="inlineRadio1">上午</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                            v-model="input.allday" value="2">
-                        <label class="form-check-label" for="inlineRadio2">下午</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                            v-model="input.allday" value="3">
-                        <label class="form-check-label" for="inlineRadio3">24小時</label>
-                    </div>
-                </div>
+    <!-- Page content-->
+    <div class="container border ">
+      <div class="row border border-1 d-flex p-1">
+
+        <div class="col-md-6">
+          <span for="inputSdt" class="badge  rounded-pill text-bg-success">起始日期</span>
+          <input type="date" v-model.trim="input.Sdt" class="form-control" id="inputSdt">
+        </div>
+        <div class="col-md-6">
+          <span for="inputEdt" class="badge  rounded-pill text-bg-success">終止日期</span>
+          <input type="date" v-model.trim="input.Edt" class="form-control" id="inputEdt">
+        </div>
+      </div>
+      <div class="row border border-1 d-flex p-1">
+        <div class="col-6">
+          <span for="radio_time" class="badge  rounded-pill text-bg-success">時段選擇</span>
+          <div id="radio_time">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                v-model="input.allday" value="0">
+              <label class="form-check-label" for="inlineRadio0" checked="checked">全天</label>
             </div>
-            <!-- <div class="col-12">
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                v-model="input.allday" value="1">
+              <label class="form-check-label" for="inlineRadio1">上午</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                v-model="input.allday" value="2">
+              <label class="form-check-label" for="inlineRadio2">下午</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                v-model="input.allday" value="3">
+              <label class="form-check-label" for="inlineRadio3">24小時</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-6">
+          <span for="inputName" class="badge  rounded-pill text-bg-success">月嫂姓名</span>
+          <input type="text" class="form-control" v-model.trim="input.Name" list="datalistOptions" id="inputName"
+            placeholder="王小明"></input>
+          <!-- <input class="form-control" list="datalistOptions" id="MemberDataList" v-model="input.Name"
+                            placeholder="王小明"> -->
+          <datalist id="datalistOptions">
+            <option v-for="itme in MemberNameList" :value="itme.Name"></option>
+          </datalist>
+        </div>
+      </div>
+      <!-- <div class="col-12">
                           <div class="col-12">
                               <span for="inputEdt" class="badge  rounded-pill text-bg-success">備註</span>
                               <textarea rows="4" v-model.trim="input.Note" class="form-control" id="inputNote"></textarea>
                           </div>
                       </div> -->
-            <div class="row border border-1">
-                <div class="col-6 ">
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-danger end-0" @click="clear">清除資料</button>
-                    </div>
-                </div>
-                <div class="col-6 ">
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary end-0" @click="submit">送出</button>
-                    </div>
-                </div>
-
-            </div>
+      <div class="row border border-1">
+        <div class="col-6 ">
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-danger end-0" @click="clear">清除資料</button>
+          </div>
+        </div>
+        <div class="col-6 ">
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary end-0" @click="submit">送出</button>
+          </div>
         </div>
 
-        <div class="container border ">
-            <div class="row">
-                <div class="col-12">
-                    <div class="col-12">
-                        <span for="inputName" class="badge  rounded-pill text-bg-success">月嫂姓名</span>
-                        <input type="text" v-model.trim="input.Name" class="form-control" id="inputName"></input>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 ">
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-success end-0" @click="select">月嫂名稱篩選</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container border">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">起始日期</th>
-                        <th scope="col">截止日期</th>
-                        <th scope="col">全天</th>
-                        <th scope="col">姓名</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{input.Sdt}}</td>
-                        <td>{{input.Edt}}</td>
-                        <td>{{input.allday}}</td>
-                        <td>{{input.Name}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">序號</th>
-                        <th scope="col">姓名</th>
-                        <th scope="col">服務過地區</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(item,index) in MemberList">
-                        <th scope="row">{{index + 1}}</th>
-                        <td>{{item.Name}}</td>
-                        <td>{{item.City}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      </div>
     </div>
-    <div class="footer ">        
-        <div class="container">
-            <h5>Copyright © 2023 shinek031 Inc.</h5>
-        </div>
+    <div class="container border">
+      <h4>查詢條件</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">起始日期</th>
+            <th scope="col">截止日期</th>
+            <th scope="col">時段</th>
+            <th scope="col">姓名</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{input.Sdt}}</td>
+            <td>{{input.Edt}}</td>
+            <td>{{input.allday}}</td>
+            <td>{{input.Name}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 10%;" scope="col">序號</th>
+            <th style="width: 10%;" scope="col">姓名</th>
+            <th style="width: 80%;" scope="col">服務過地區</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in MemberList">
+            <th scope="row">{{index + 1}}</th>
+            <td>{{item.Name}}</td>
+            <td>{{item.City}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <script>
-        let data = {
-            UUID: '',
-            input: {
-                Name: '',
-                ID: '',
-                City: '',
-                ClientName: '',
-                ClientPhone: '',
-                ClientAdderss: '',
-                Sdt: '',
-                Edt: '',
-                allday: 0,
-                Note: ''
+    <!-- HTML -->
+    <!-- <div class="mask"> </div>
+    <div class="loader"><p></p></div> -->
+  </div>
+  <div class="footer ">
+    <div class="container">
+      <h5>Copyright © 2023 shinek031 Inc.</h5>
+    </div>
+  </div>
+  <div id="app2">
+    <div class="mask">
+    </div>
+    <div class="loader">
+      <p></p>
+    </div>
+  </div>
+  <script>
+    let data = {
+      UUID: '',
+      loader: document.querySelector('.loader'),
+      mask: document.querySelector('.mask'),
+      input: {
+        Name: '',
+        ID: '',
+        City: '',
+        ClientName: '',
+        ClientPhone: '',
+        ClientAdderss: '',
+        Sdt: '',
+        Edt: '',
+        allday: 0,
+        Note: ''
 
-            },
-            PageMenu: [
-                { Title: '空檔月嫂查詢', Link: 'https://script.google.com/macros/s/AKfycbxZtD1FyDjF2mDa7c5fuVR4v6SkIaUHyUlljIIpeh2X8n9u3KLAhoQ1t6nWShcz-SJ_mw/exec', Note: '' },
-                { Title: '排班時序表查詢', Link: 'javescript:;', Note: '' },
-                { Title: '表單統計作業', Link: 'javescript:;' },
-                { Title: '待用', Link: 'javescript:;', Note: '' }
-            ],
-            rowData: {
-                Sdt: '',
-                Edt: '',
-                allday: '',
-                Name: ''
-            },
-            MemberList: [
-                { Name: '莊小嘉', ID: 'S112121212', City: '屏東市、里港鄉、潮州鎮' },
-                { Name: '陳小仟', ID: 'E221212111', City: '林邊鄉、東港鎮' }
-            ],
-            CityList: [
-                "屏東市", "潮州鎮", "東港鎮",
-            ]
+      },
+      PageMenu: [
+        { Title: '空檔月嫂查詢', Link: 'https://script.google.com/macros/s/AKfycbxZtD1FyDjF2mDa7c5fuVR4v6SkIaUHyUlljIIpeh2X8n9u3KLAhoQ1t6nWShcz-SJ_mw/exec', Note: '' },
+        { Title: '排班時序表查詢', Link: 'javescript:;', Note: '' },
+        { Title: '表單統計作業', Link: 'javescript:;' },
+        { Title: '待用', Link: 'javescript:;', Note: '' }
+      ],
+      rowData: {
+        Sdt: '',
+        Edt: '',
+        allday: '',
+        Name: ''
+      },
+      MemberList: [
+        { Name: '莊小嘉', ID: 'S112121212', City: '屏東市、里港鄉、潮州鎮' },
+        { Name: '陳小仟', ID: 'E221212111', City: '林邊鄉、東港鎮' },
+        { Name: 'XXX', ID: '1212121', City: '林邊鄉、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮' }
+      ],
+      MemberNameList: [
+        { Name: '莊小嘉', ID: 'S112121212', City: '屏東市、里港鄉、潮州鎮' },
+        { Name: '陳小仟', ID: 'E221212111', City: '林邊鄉、東港鎮' },
+        { Name: 'XXX', ID: '1212121', City: '林邊鄉、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮、東港鎮' }
+      ],
+      CityList: [
+        "屏東市", "潮州鎮", "東港鎮",
+      ]
+    }
+    let vue = new Vue({
+      el: "#app",
+      data: data,
+      methods: {
+        setPageMenu(_data) {
+          this.PageMenu = [];
+          for (var i = 0; i < _data.length; i++) {
+            this.PageMenu.push({
+              Title: _data[i].Title,
+              Link: _data[i].Link,
+              Note: _data[i].Note
+            })
+          }
+        },
+        setMemberList(_data) {
+          // alert('解析資料')
+          this.MemberList = [];
+          for (var i = 0; i < _data.length; i++) {
+            // alert(_data[i].UUID);
+            this.MemberList.push({
+              Name: _data[i].Name,
+              City: _data[i].City
+            })
+          }
+          // alert(this.MemberList.length);
+        },
+        setMemberNameList(_data) {
+          // alert('解析資料')
+          this.MemberNameList = [];
+          for (var i = 0; i < _data.length; i++) {
+            // alert(_data[i].UUID);
+            this.MemberNameList.push({
+              Name: _data[i].Name,
+              City: _data[i].City
+            })
+          }
+          // alert(this.MemberList.length);
+        },
+        getPageList() {
+          google.script.run
+            .withSuccessHandler((jsData) => {
+              this.setPageMenu(jsData);
+            })
+            .withFailureHandler((er) => {
+              alert("目錄擷取失敗");
+            })
+            .getPage();
+        },
+        getMemberList() {
+          google.script.run
+            .withSuccessHandler((jsData2) => {
+              // alert('有資料');
+              this.setMemberList(jsData2);
+            })
+            .withFailureHandler((er) => {
+              alert("Member擷取失敗");
+            })
+            .getMember();
+        },
+        getMemberNameList() {
+          google.script.run
+            .withSuccessHandler((jsData2) => {
+              // alert('有資料');
+              this.setMemberNameList(jsData2);
+            })
+            .withFailureHandler((er) => {
+              alert("Member擷取失敗");
+            })
+            .getMemberName();
+        },
+        submit() {
+          //this.$router.go(0);
+          // location.reload();
+          this.toggleLoading(true);
+          this.MemberList = [];
+          this.rowData.clear;
+          this.rowData.Sdt = this.input.Sdt;
+          this.rowData.Edt = this.input.Edt;
+          switch (this.input.allday) {
+            case '0':
+              this.rowData.allday = '全天'
+              break;
+            case '1':
+              this.rowData.allday = '上午'
+              break;
+            case '2':
+              this.rowData.allday = '下午'
+              break;
+            case '3':
+              this.rowData.allday = '24小時'
+              break;
+          }
+          // this.rowData.allday = "'" + this.input.allday;
+          // this.sendData(this.rowData)
+          // alert(this.input.Sdt.substring(0,4)-1911);
+        },
+        sendData(_rowData) {
+          google.script.run
+            .withSuccessHandler((jsdata) => {
+              this.setMemberList(jsdata)
+            })
+            .withFailureHandler((er) => {
+              alert("目錄擷取失敗");
+            })
+            .getMember(_rowData);
+          // this.setMemberList();
+          // this.reload();
+
+          // document.getElementById("myform").reset();
+        },
+        resertData() {
+          location.reload();
+          this.input.Name = '';
+          this.input.Birthday = '';
+          this.input.Address = '';
+          this.input.ID = '';
+          this.input.Phone = '';
+        },
+        DelRow(_id) {
+          alert("刪除:" + _id);
+          google.script.run
+            .withSuccessHandler((flg) => {
+              if (flg == true) {
+                alert("完成");
+              }
+              else {
+                alert("失敗");
+              }
+            })
+            .withFailureHandler((er) => {
+              alert("目錄擷取失敗");
+            })
+            .DelMemberRow(_id);
+          this.getMemberList();
+        },
+        async clear() {
+          google.script.run
+            .withSuccessHandler(function (url) {
+              window.open(url, '_top');
+            })
+            .getUrl();
+        },
+        select() {
+          this.rowData.Name = this.input.Name
+          google.script.run
+            .withSuccessHandler((jsdata) => {
+              alert("篩選完成");
+            })
+            .withFailureHandler((er) => {
+              alert("目錄擷取失敗:" + er);
+            })
+            .SELECT_NAME(this.rowData);
+        },
+        toggleLoading(show) {
+          // alert("XXX");
+          // this.loader = document.querySelector('.loader');
+          // this.mask = document.querySelector('.mask');
+          this.loader.style.display = show ? "block" : "none";
+          this.mask.style.display = show ? "block" : "none";
         }
-        let vue = new Vue({
-            el: "#app",
-            data: data,
-            methods: {
-                setPageMenu(_data) {
-                    this.PageMenu = [];
-                    for (var i = 0; i < _data.length; i++) {
-                        this.PageMenu.push({
-                            Title: _data[i].Title,
-                            Link: _data[i].Link,
-                            Note: _data[i].Note
-                        })
-                    }
-                },
-                setMemberList(_data) {
-                    // alert('解析資料')
-                    this.MemberList = [];
-                    for (var i = 0; i < _data.length; i++) {
-                        // alert(_data[i].UUID);
-                        this.MemberList.push({
-                            Name: _data[i].Name,
-                            City: _data[i].City
-                        })
-                    }
-                    // alert(this.MemberList.length);
-                },
-                getPageList() {
-                    google.script.run
-                        .withSuccessHandler((jsData) => {
-                            this.setPageMenu(jsData);
-                        })
-                        .withFailureHandler((er) => {
-                            alert("目錄擷取失敗");
-                        })
-                        .getPage();
-                },
-                getMemberList() {
-                    google.script.run
-                        .withSuccessHandler((jsData2) => {
-                            // alert('有資料');
-                            this.setMemberList(jsData2);
-                        })
-                        .withFailureHandler((er) => {
-                            alert("Member擷取失敗");
-                        })
-                        .getMember();
-                },
-                submit() {
-                    //this.$router.go(0);
-                    // location.reload();
+      },
+      created: function () {
+        // this.setPageMenu(PageMenu2);
+        // this.getPageList();
+        // this.getMemberNameList();
+      },
+      mounted: function () {
+        this.loader = document.querySelector('.loader');
+        this.mask = document.querySelector('.mask');
+        // this.toggleLoading(true);
+        // this.getPageList();
+      }
+    })
+  </script>
+  <!-- Core theme JS-->
+  <!-- <script src="js/scripts.js"></script> -->
 
-                    this.rowData.clear;
-                    this.rowData.Sdt = this.input.Sdt;
-                    this.rowData.Edt = this.input.Edt;
-                    switch (this.input.allday) {
-                        case '0':
-                            this.rowData.allday = '全天'
-                            break;
-                        case '1':
-                            this.rowData.allday = '上午'
-                            break;
-                        case '2':
-                            this.rowData.allday = '下午'
-                            break;
-                        case '3':
-                            this.rowData.allday = '24小時'
-                            break;
-                    }
-                    // this.rowData.allday = "'" + this.input.allday;
-                    this.sendData(this.rowData)
-                    // alert(this.input.Sdt.substring(0,4)-1911);
-                },
-                sendData(_rowData) {
-                    google.script.run
-                        .withSuccessHandler((jsdata) => {
-                            this.setMemberList(jsdata)
-                        })
-                        .withFailureHandler((er) => {
-                            alert("目錄擷取失敗");
-                        })
-                        .getMember(_rowData);
-                    // this.setMemberList();
-                    // this.reload();
 
-                    // document.getElementById("myform").reset();
-                },
-                resertData() {
-                    location.reload();
-                    this.input.Name = '';
-                    this.input.Birthday = '';
-                    this.input.Address = '';
-                    this.input.ID = '';
-                    this.input.Phone = '';
-                },
-                DelRow(_id) {
-                    alert("刪除:" + _id);
-                    google.script.run
-                        .withSuccessHandler((flg) => {
-                            if (flg == true) {
-                                alert("完成");
-                            }
-                            else {
-                                alert("失敗");
-                            }
-                        })
-                        .withFailureHandler((er) => {
-                            alert("目錄擷取失敗");
-                        })
-                        .DelMemberRow(_id);
-                    this.getMemberList();
-                },
-                async clear() {
-                    google.script.run
-                        .withSuccessHandler(function (url) {
-                            window.open(url, '_top');
-                        })
-                        .getUrl();
-                },
-                select() {
-                    this.rowData.Name = this.input.Name
-                    google.script.run
-                        .withSuccessHandler((jsdata) => {
-                            alert("篩選完成");
-                        })
-                        .withFailureHandler((er) => {
-                            alert("目錄擷取失敗:" + er);
-                        })
-                        .SELECT_NAME(this.rowData);
-                }
-            },
-            created: function () {
-                // this.setPageMenu(PageMenu2);
-                // this.getPageList();
-                // this.getMemberList();
-            },
-            mounted: function () {
-                // this.getPageList();
-            }
-        })
-
-    </script>
-    <!-- Core theme JS-->
-    <!-- <script src="js/scripts.js"></script> -->
 </body>
 
 </html>
